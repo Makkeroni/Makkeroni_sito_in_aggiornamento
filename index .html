@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Makkeroni — Sitio en renovación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --oro: #b3892b;
+    --bordeaux: #3d1220;
+    --bianco: #ffffff;
+    --grigio-testo: #4a4a4a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--grigio-testo);
+    background: var(--bianco);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--bianco);
+    border-bottom: 1px solid #eee;
+    padding: 28px 20px 20px;
+    text-align: center;
+  }
+
+  .logo img {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+  }
+
+  nav.lang-switch {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  nav.lang-switch button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border: 1px solid var(--oro);
+    background: transparent;
+    color: var(--bordeaux);
+    padding: 7px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  nav.lang-switch button.active,
+  nav.lang-switch button:hover {
+    background: var(--oro);
+    color: #fff;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+  }
+
+  .container {
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeIn 0.7s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--oro);
+    border: 1px solid var(--oro);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 2.1rem;
+    color: var(--bordeaux);
+    line-height: 1.3;
+    margin-bottom: 18px;
+  }
+
+  p.lead {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--grigio-testo);
+    text-align: justify;
+    margin-bottom: 34px;
+    padding: 0 8px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--oro);
+    margin: 0 auto 34px;
+  }
+
+  .contact-card {
+    background: #fbf8f2;
+    border: 1px solid #eee0c4;
+    border-radius: 14px;
+    padding: 30px 24px;
+    text-align: left;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .contact-row:last-child { margin-bottom: 0; }
+
+  .contact-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bordeaux);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .contact-text a {
+    color: var(--bordeaux);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .contact-text a:hover { color: var(--oro); }
+
+  .contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--oro);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .socials {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .socials a {
+    color: var(--bordeaux);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid var(--bordeaux);
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.25s ease;
+  }
+
+  .socials a:hover {
+    background: var(--bordeaux);
+    color: #fff;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.78rem;
+    color: #999;
+  }
+
+  .lang-block { display: none; }
+  .lang-block.active { display: block; }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 1.7rem; }
+    .logo { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="logo-makkeroni.png" alt="Makkeroni — Gastronomia Italiana"></div>
+  <nav class="lang-switch">
+    <button data-lang="es" class="active">ES</button>
+    <button data-lang="ca">CAT</button>
+    <button data-lang="en">ENG</button>
+    <button data-lang="it">IT</button>
+  </nav>
+</header>
+
+<main>
+  <div class="container" id="content">
+
+    <!-- ESPAÑOL -->
+    <div class="lang-block active" data-lang="es">
+      <span class="badge">En renovación</span>
+      <h1>Estamos en fase de renovación</h1>
+      <p class="lead">Seguimos trabajando para mejorar. Mientras tanto, te esperamos con mucho gusto en nuestra tienda de Poblenou, en el corazón de Barcelona.</p>
+      <div class="divider"></div>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <span class="contact-label">Dirección</span>
+            Calle Maria Aguiló 62, 08005 Barcelona
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <span class="contact-label">Teléfono</span>
+            <a href="tel:+34933821436">933 82 14 36</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <span class="contact-label">Email</span>
+            <a href="mailto:hola@makkeroni.com">hola@makkeroni.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="socials">
+        <a href="https://facebook.com/makkeroni.gastronomia.italiana.BCN" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://instagram.com/makkeroni_bcn" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/34685031676" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- ITALIANO -->
+    <div class="lang-block" data-lang="it">
+      <span class="badge">In fase di rinnovo</span>
+      <h1>Siamo in fase di rinnovo</h1>
+      <p class="lead">Stiamo lavorando per migliorare. Nel frattempo, vi aspettiamo con piacere nel nostro negozio a Poblenou, nel cuore di Barcellona.</p>
+      <div class="divider"></div>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <span class="contact-label">Indirizzo</span>
+            Calle Maria Aguiló 62, 08005 Barcelona
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <span class="contact-label">Telefono</span>
+            <a href="tel:+34933821436">933 82 14 36</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <span class="contact-label">Email</span>
+            <a href="mailto:hola@makkeroni.com">hola@makkeroni.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="socials">
+        <a href="https://facebook.com/makkeroni.gastronomia.italiana.BCN" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://instagram.com/makkeroni_bcn" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/34685031676" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block" data-lang="en">
+      <span class="badge">Renovation in progress</span>
+      <h1>We're in the process of renovating</h1>
+      <p class="lead">We're working to improve. In the meantime, we'd be delighted to welcome you at our shop in Poblenou, in the heart of Barcelona.</p>
+      <div class="divider"></div>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <span class="contact-label">Address</span>
+            Calle Maria Aguiló 62, 08005 Barcelona
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <span class="contact-label">Phone</span>
+            <a href="tel:+34933821436">933 82 14 36</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <span class="contact-label">Email</span>
+            <a href="mailto:hola@makkeroni.com">hola@makkeroni.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="socials">
+        <a href="https://facebook.com/makkeroni.gastronomia.italiana.BCN" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://instagram.com/makkeroni_bcn" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/34685031676" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- CATALÀ -->
+    <div class="lang-block" data-lang="ca">
+      <span class="badge">En renovació</span>
+      <h1>Estem en fase de renovació</h1>
+      <p class="lead">Continuem treballant per millorar. Mentrestant, us esperem amb molt de gust a la nostra botiga de Poblenou, al cor de Barcelona.</p>
+      <div class="divider"></div>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <span class="contact-label">Adreça</span>
+            Calle Maria Aguiló 62, 08005 Barcelona
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <span class="contact-label">Telèfon</span>
+            <a href="tel:+34933821436">933 82 14 36</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <span class="contact-label">Email</span>
+            <a href="mailto:hola@makkeroni.com">hola@makkeroni.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="socials">
+        <a href="https://facebook.com/makkeroni.gastronomia.italiana.BCN" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://instagram.com/makkeroni_bcn" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/34685031676" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  © 2026 Gastronomia Makkeroni SCP
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.lang-switch button');
+  const blocks = document.querySelectorAll('.lang-block');
+  const container = document.getElementById('content');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      blocks.forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-block[data-lang="${lang}"]`).classList.add('active');
+
+      document.documentElement.lang = lang;
+
+      container.style.animation = 'none';
+      void container.offsetWidth;
+      container.style.animation = 'fadeIn 0.5s ease forwards';
+    });
+  });
+</script>
+
+</body>
+</html>
